@@ -263,9 +263,19 @@ export function McpView({ onBack, onOpenSettings, token }: McpViewProps) {
             )}
 
             {servers.length === 0 && !showForm && (
-              <div className="py-8 text-center text-sm text-muted-foreground">
-                {t("mcp.empty")}
-              </div>
+              <section className="mb-4">
+                <h2 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/70">
+                  {t("mcp.connected")} (0)
+                </h2>
+                <div className="space-y-1.5">
+                  <PlaceholderCard label="stdio" />
+                  <PlaceholderCard label="sse" />
+                  <PlaceholderCard label="streamableHttp" />
+                </div>
+                <p className="mt-3 text-center text-[11px] text-muted-foreground/50">
+                  {t("mcp.empty")}
+                </p>
+              </section>
             )}
 
             {showForm ? (
@@ -518,6 +528,29 @@ function ServerCard({
         >
           {isActing ? <Loader2 className="h-3 w-3 animate-spin" /> : <Trash2 className="h-3 w-3" />}
         </Button>
+      </div>
+    </div>
+  );
+}
+
+function PlaceholderCard({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-3 rounded-xl border-2 border-dashed border-border/40 px-3 py-2.5">
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted/40 text-[11px] font-bold text-muted-foreground/30">
+        ?
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-1.5">
+          <span className="text-[12.5px] font-medium leading-tight text-muted-foreground/30">
+            {label}
+          </span>
+          <span className="text-[10px] text-muted-foreground/20 uppercase">
+            {label}
+          </span>
+        </div>
+        <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground/20">
+          ──────────
+        </p>
       </div>
     </div>
   );
