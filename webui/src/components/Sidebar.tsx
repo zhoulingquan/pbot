@@ -129,6 +129,12 @@ export function Sidebar(props: SidebarProps) {
           onClick={props.onOpenSearch}
           icon={<Search className="h-4 w-4" />}
         />
+        <SidebarActionButton
+          collapsed={collapsed}
+          label={t("sidebar.mcp")}
+          onClick={props.onOpenMcp}
+          icon={<PlugZap className="h-4 w-4" />}
+        />
         {props.archivedCount ? (
           <SidebarActionButton
             collapsed={collapsed}
@@ -184,12 +190,6 @@ export function Sidebar(props: SidebarProps) {
           collapsed && "w-14 flex-col px-0",
         )}
       >
-        <SidebarActionButton
-          collapsed={collapsed}
-          label={t("sidebar.mcp")}
-          onClick={props.onOpenMcp}
-          icon={<PlugZap className="h-4 w-4" />}
-        />
         <SidebarActionButton
           collapsed={collapsed}
           label={t("sidebar.settings")}
