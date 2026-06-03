@@ -1456,6 +1456,8 @@ class WebSocketChannel(BaseChannel):
         # Hash-named build assets are cache-friendly; index.html must stay fresh.
         if candidate.name == "index.html":
             cache = "no-cache"
+        elif "/brand/" in request_path:
+            cache = "no-cache"
         else:
             cache = "public, max-age=31536000, immutable"
         return _http_response(
