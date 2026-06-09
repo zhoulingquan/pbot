@@ -5,6 +5,7 @@ import {
   PlugZap,
   Search,
   Settings,
+  Sparkles,
   SquarePen,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -34,6 +35,7 @@ interface SidebarProps {
   onNewChatInProject: (projectPath: string, projectName: string) => void;
   onOpenSettings: () => void;
   onOpenMcp: () => void;
+  onOpenSkills: () => void;
   onOpenSearch: () => void;
   onToggleArchived: () => void;
   onCollapse: () => void;
@@ -128,6 +130,12 @@ export function Sidebar(props: SidebarProps) {
           label={t("sidebar.searchAria")}
           onClick={props.onOpenSearch}
           icon={<Search className="h-4 w-4" />}
+        />
+        <SidebarActionButton
+          collapsed={collapsed}
+          label={t("sidebar.skills")}
+          onClick={props.onOpenSkills}
+          icon={<Sparkles className="h-4 w-4" />}
         />
         <SidebarActionButton
           collapsed={collapsed}

@@ -51,6 +51,7 @@
     "recent": "最近对话",
     "settings": "设置",
     "mcp": "MCP",
+    "skills": "技能",
     "language": {
       "label": "语言",
       "ariaLabel": "切换语言"
@@ -663,5 +664,20 @@
       "missingDependency": "需要依赖",
       "notInstalled": "未启用"
     }
+  },
+  "skills": {
+    "title": "技能",
+    "loading": "加载技能中...",
+    "empty": "暂无可用技能。",
+    "builtin": "内置技能",
+    "workspace": "工作区技能",
+    "builtinBadge": "内置",
+    "workspaceBadge": "工作区",
+    "deleteTitle": "删除技能",
+    "deleteAria": "删除 {{name}}",
+    "deleteDialogTitle": "删除技能 \"{{name}}\"？",
+    "deleteDescription": "此操作无法撤销，技能文件将被永久删除。",
+    "deleteCancel": "取消",
+    "deleteConfirm": "删除"
   }
 }

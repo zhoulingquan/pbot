@@ -435,6 +435,18 @@ export interface McpPresetField {
   env_var?: string | null;
 }
 
+export interface SkillInfo {
+  name: string;
+  description: string;
+  source: "builtin" | "workspace";
+  available: boolean;
+  path: string;
+}
+
+export interface SkillsPayload {
+  skills: SkillInfo[];
+}
+
 export interface McpPresetInfo {
   name: string;
   display_name: string;

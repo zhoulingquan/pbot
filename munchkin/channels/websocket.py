@@ -800,7 +800,61 @@ class WebSocketChannel(BaseChannel):
         if got == "/api/webui/sidebar-state/update":
             return self._handle_webui_sidebar_state_update(request)
 
+        if got == "/api/skills":
+            return self._handle_skills_list(request)
+
+        if got == "/api/skills/delete":
+            return self._handle_skills_delete(request)
+
         return None
+
+    def _handle_skills_list(self, request: WsRequest | None = None) -> Response:
+        """Return available skills (builtin + workspace) as JSON."""
+        from munchkin.agent.skills import SkillsLoader
+
+        try:
+            loader = SkillsLoader(self._workspace_path)
+            skills = loader.list_skills(filter_unavailable=False)
+            result = []
+            for entry in skills:
+                meta = loader.get_skill_metadata(entry["name"]) or {}
+                description = meta.get("description", entry["name"])
+                available = loader._check_requirements(loader._get_skill_meta(entry["name"]))
+                result.append({
+                    "name": entry["name"],
+                    "description": description,
+                    "source": entry["source"],
+                    "available": available,
+                    "path": entry["path"],
+                })
+            return _http_json_response({"skills": result})
+        except Exception as exc:
+            return _http_error(500, str(exc))
+
+    def _handle_skills_delete(self, request: WsRequest | None = None) -> Response:
+        """Delete a workspace skill by name."""
+        import shutil
+
+        query = _parse_query(request.path if request else "")
+        names = query.get("name", [])
+        name = names[0] if names else None
+        if not name:
+            return _http_error(400, "missing 'name' parameter")
+
+        # Sanitize name to prevent directory traversal
+        safe_name = name.replace("/", "").replace("\\", "").replace("..", "")
+        if safe_name != name or not name:
+            return _http_error(400, "invalid skill name")
+
+        skill_dir = self._workspace_path / "skills" / safe_name
+        if not skill_dir.exists():
+            return _http_error(404, f"skill '{safe_name}' not found in workspace")
+
+        try:
+            shutil.rmtree(skill_dir)
+            return _http_json_response({"deleted": True, "name": safe_name})
+        except Exception as exc:
+            return _http_error(500, str(exc))
 
     async def _dispatch_settings_api_route(
         self,

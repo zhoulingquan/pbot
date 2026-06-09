@@ -9,6 +9,7 @@ import type {
   SettingsPayload,
   SettingsUpdate,
   SidebarStatePayload,
+  SkillsPayload,
   SlashCommand,
   WebSearchSettingsUpdate,
   WorkspacesPayload,
@@ -223,6 +224,26 @@ export async function updateMcpServerTools(
     `${base}/api/settings/mcp-presets/tools`,
     token,
     { headers: mcpValuesHeader({ name, enabled_tools: enabledTools }) },
+  );
+}
+
+export async function fetchSkills(
+  token: string,
+  base: string = "",
+): Promise<SkillsPayload> {
+  return request<SkillsPayload>(`${base}/api/skills`, token);
+}
+
+export async function deleteSkill(
+  token: string,
+  name: string,
+  base: string = "",
+): Promise<{ deleted: boolean; name: string }> {
+  const query = new URLSearchParams();
+  query.set("name", name);
+  return request<{ deleted: boolean; name: string }>(
+    `${base}/api/skills/delete?${query}`,
+    token,
   );
 }
 

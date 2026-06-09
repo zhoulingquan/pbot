@@ -51,6 +51,7 @@
     "recent": "Recent",
     "settings": "Settings",
     "mcp": "MCP",
+    "skills": "Skills",
     "language": {
       "label": "Language",
       "ariaLabel": "Change language"
@@ -663,5 +664,20 @@
       "missingDependency": "Needs dependency",
       "notInstalled": "Not enabled"
     }
+  },
+  "skills": {
+    "title": "Skills",
+    "loading": "Loading skills...",
+    "empty": "No skills available.",
+    "builtin": "Built-in",
+    "workspace": "Workspace",
+    "builtinBadge": "builtin",
+    "workspaceBadge": "workspace",
+    "deleteTitle": "Delete skill",
+    "deleteAria": "Delete {{name}}",
+    "deleteDialogTitle": "Delete skill \"{{name}}\"?",
+    "deleteDescription": "This action cannot be undone. The skill files will be permanently deleted.",
+    "deleteCancel": "Cancel",
+    "deleteConfirm": "Delete"
   }
 }
